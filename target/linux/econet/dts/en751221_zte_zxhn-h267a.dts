@@ -27,6 +27,21 @@
 		reg = <0x00000000 0x08000000>;	/* Memory size 128MB */
 	};
 
+	reserved-memory {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		ranges;
+
+		/* crash log kept across a warm reboot: /sys/fs/pstore after the next boot */
+		ramoops@5000000 {
+			compatible = "ramoops";
+			reg = <0x05000000 0x00100000>;
+			record-size = <0x20000>;
+			console-size = <0x40000>;
+			ecc-size = <16>;
+		};
+	};
+
 	chosen {
 		stdout-path = "/serial@1fbf0000:115200";
 		/*
